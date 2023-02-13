@@ -1,0 +1,13 @@
+Como utilizar o padrão C++ 11
+
+>> g++ gameHangman.cpp -o game2.out -std=c++11
+
+Para adicionar no makefile e manter o padrão C++ 11
+
+>> CXXFLAGS= -std=c++11
+>> make arquivosemextensao
+
+
+Para não precisar utilizar std:: para o cout e endl
+
+>> using namespace std;
