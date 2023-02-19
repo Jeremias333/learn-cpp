@@ -11,3 +11,13 @@ Para adicionar no makefile e manter o padrão C++ 11
 Para não precisar utilizar std:: para o cout e endl
 
 >> using namespace std;
+
+Para utilizar o random em C++
+
+- Importar as bibliotecas ctime e cstdlib
+- Depois disso vamos precisar configurar o rand
+    srand(time(NULL));
+
+- Na hora que fomos utilizar precisamos limitar, para este caso
+vamos limitar ele de 0 a 4. O número random será de 0 a 4
+    int index_rand = rand() % 5;
