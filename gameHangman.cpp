@@ -91,21 +91,8 @@ void processing_hits(){
     cout << endl;
 }
 
-void print_game_over(){
-    cout << "Game Over!" << endl;
-    cout << "A palavra secreta era: " << secret_word << endl;
-
-    if (aint_correct(secret_word)){
-        cout << "Você perdeu, tente novamente!" << endl;
-    }
-    else{
-        cout << "Parabéns você acertou!" << endl;
-    }
-}
-
 vector<string> read_file(string path="words.txt"){
     file.open(path);
-
 
     if (file.is_open()){
         int qtd_words;
@@ -124,6 +111,7 @@ vector<string> read_file(string path="words.txt"){
         }
 
         file.close();
+
         return words_of_file;
     }else{
         cout << "Não foi possível acessar o banco de palavras." << endl;
@@ -138,6 +126,58 @@ void random_word(){
     int index_rand = rand() % words.size();
 
     secret_word = words[index_rand];
+}
+
+void save_file(vector<string> word_list, string path="words.txt"){
+    ofstream fileo;
+    fileo.open(path);
+
+    if (fileo.is_open()){
+        fileo << word_list.size() << endl;
+
+        for (string word : word_list){
+            fileo << word << endl;
+        }
+
+        fileo.close();
+    }else{
+        cout << "Não foi possível acessar o banco de palavras para escrita";
+        exit(0);
+    }
+
+}
+
+void add_new_word(){
+    cout << "Digite a nova palavra, utilizando letras maiusculas: ";
+    
+    string new_word;
+    cin >> new_word;
+
+    vector<string> word_list = read_file();
+    word_list.push_back(new_word);
+
+    save_file(word_list);
+}
+
+void print_game_over(){
+    cout << "Game Over!" << endl;
+    cout << "A palavra secreta era: " << secret_word << endl;
+
+    if (aint_correct(secret_word)){
+        cout << "Você perdeu, tente novamente!" << endl;
+    }
+    else{
+        cout << "Parabéns você acertou!" << endl;
+        
+        cout << "Você deseja adicionar nova palavra ao banco? (S/N)" << endl;
+        char response;
+
+        cin >> response;
+
+        if(response == 'S'){
+            add_new_word();
+        }
+    }
 }
 
 int main(){
